@@ -256,12 +256,12 @@ lipm_model.y_0 = COM_pos[1] - y_left_foot
 lipm_model.vy_0 = COM_vel[1]
 
 T_sup = 1.0
-s_x = 80
-s_y = 79
-theta = 15
+s_x = 2
+s_y = 2
+theta = 1
 u = 0
 u = u % 6
-duration = 6
+duration = 15
 t = 0.0
 print(len(joint_handlesr))
 while t < duration:
@@ -286,19 +286,16 @@ while t < duration:
             sim.setJointTargetVelocity(joint_handles[i], desired_velocity)
     
     # Aquí se establecen las posiciones y velocidades deseadas en el simulador
-    sim.setJointTargetPosition(joint_handlesr[u], lipm_model.p_x_star.item())
-    sim.setJointTargetPosition(joint_handlesl[u], lipm_model.p_y_star.item())
-    sim.setJointTargetVelocity(joint_handlesr[u], lipm_model.vx_d.item())
-    sim.setJointTargetVelocity(joint_handlesl[u], lipm_model.vy_d.item())
+    sim.setJointTargetPosition(joint_handlesr[u], lipm_model.p_x_star [0].item())
+    sim.setJointTargetPosition(joint_handlesl[u], lipm_model.p_y_star[1].item())
+    sim.setJointTargetVelocity(joint_handlesr[u], lipm_model.vx_d[0].item())
+    sim.setJointTargetVelocity(joint_handlesl[u], lipm_model.vy_d[1].item())
     t += T_sup
     u +=1
-# Antes de serializar los datos, convierte los arrays de numpy a listas de Python
-left_data = {"embeddings": [array.tolist () for array in left_foot_pos], "names": left_foot_pos}
-right_data = {"embeddings": [array.tolist () for array in right_foot_pos], "names": right_foot_pos}
-
+left_data = {"embeddings": [array.tolist () for array in left_foot_pos]} # omite la clave names
+right_data = {"embeddings": [array.tolist () for array in right_foot_pos]} # omite la clave names
 # Combina los datos en un solo diccionario
 data = {"left": left_data, "right": right_data}
-
 # Serializa los datos como antes
 f = open ('file.json', "w")
 f.write (json.dumps (data, indent=4))
