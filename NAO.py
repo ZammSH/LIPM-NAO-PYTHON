@@ -259,8 +259,7 @@ T_sup = 1.0
 s_x = 2
 s_y = 2
 theta = 1
-u = 0
-u = u % 6
+
 duration = 6
 t = 0.0
 
@@ -285,21 +284,6 @@ while t < duration:
             sim.setJointPosition(joint_handles[i], desired_position)
             sim.setJointTargetVelocity(joint_handles[i], desired_velocity)
     
-    # Aquí se establecen las posiciones y velocidades deseadas en el simulador
-
-    sim.setJointTargetPosition(joint_handlesr[u], lipm_model.p_x_star)
-    sim.setJointTargetPosition(joint_handlesl[u], lipm_model.p_y_star)
-    sim.setJointTargetVelocity(joint_handlesr[u], lipm_model.vx_d)
-    sim.setJointTargetVelocity(joint_handlesl[u], lipm_model.vy_d)
     t += T_sup
-    u +=1
-left_data = {"embeddings": [array.tolist () for array in left_foot_pos]} # omite la clave names
-right_data = {"embeddings": [array.tolist () for array in right_foot_pos]} # omite la clave names
-# Combina los datos en un solo diccionario
-data = {"left": left_data, "right": right_data}
-# Serializa los datos como antes
-f = open ('file.json', "w")
-f.write (json.dumps (data, indent=4))
-f.close ()
-
+    
 sim.stopSimulation()
