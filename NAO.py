@@ -232,18 +232,15 @@ right_foot_pos = []
 for handle in joint_handlesr:
     position=sim.getObjectPosition(handle, -1)
     right_foot_pos.append(position)
-x_left_foot, y_left_foot, z_left_foot = left_foot_pos
-x_right_foot, y_right_foot, z_right_foot = right_foot_pos
-print("Left Foot Position:", left_foot_pos)
-print("Right Foot Position:", right_foot_pos)
-# Obtener los elementos individuales de las posiciones
-x_left_foot = left_foot_pos[0]
-y_left_foot = left_foot_pos[1]
-z_left_foot = left_foot_pos[2]
 
-x_right_foot = right_foot_pos[0]
-y_right_foot = right_foot_pos[1]
-z_right_foot = right_foot_pos[2]
+# Obtener los elementos individuales de las posiciones
+x_left_foot = [pos[0]for pos in left_foot_pos]
+y_left_foot = [pos[1]for pos in left_foot_pos]
+z_left_foot = [pos[2]for pos in left_foot_pos]
+
+x_right_foot = [pos[0]for pos in right_foot_pos]
+y_right_foot = [pos[1]for pos in right_foot_pos]
+z_right_foot = [pos[2]for pos in right_foot_pos]
 
 lipm_model = LIPM3D()
 lipm_model.initializeModel(COM_pos, x_left_foot, y_left_foot, z_left_foot, x_right_foot, y_right_foot, z_right_foot)
