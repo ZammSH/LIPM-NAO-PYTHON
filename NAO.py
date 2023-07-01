@@ -224,10 +224,12 @@ class LIPM3D():
 
 COM_pos = sim.getObjectPosition(COM, -1)
 COM_vel = sim.getObjectVelocity(COM, -1)
+
 left_foot_pos = []
 for handle in joint_handlesl:
     position = sim.getObjectPosition(handle, -1)
     left_foot_pos.append(position)
+
 right_foot_pos = []
 for handle in joint_handlesr:
     position=sim.getObjectPosition(handle, -1)
