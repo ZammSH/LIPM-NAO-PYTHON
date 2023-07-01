@@ -2,6 +2,7 @@ import numpy as np
 import time
 import math as m
 from zmqRemoteApi import RemoteAPIClient
+import json
 client = RemoteAPIClient()
 sim = client.getObject('sim')
 sim.startSimulation()
@@ -285,10 +286,10 @@ while t < duration:
             sim.setJointTargetVelocity(joint_handles[i], desired_velocity)
     
     # Aquí se establecen las posiciones y velocidades deseadas en el simulador
-    sim.setJointTargetPosition(joint_handlesr[u], lipm_model.p_x_star)
-    sim.setJointTargetPosition(joint_handlesl[u], lipm_model.p_y_star)
-    sim.setJointTargetVelocity(joint_handlesr[u], lipm_model.vx_d)
-    sim.setJointTargetVelocity(joint_handlesl[u], lipm_model.vy_d)
+    sim.setJointTargetPosition(joint_handlesr[u], lipm_model.p_x_star.item())
+    sim.setJointTargetPosition(joint_handlesl[u], lipm_model.p_y_star.item())
+    sim.setJointTargetVelocity(joint_handlesr[u], lipm_model.vx_d.item())
+    sim.setJointTargetVelocity(joint_handlesl[u], lipm_model.vy_d.item())
     t += T_sup
     u +=1
 # Antes de serializar los datos, convierte los arrays de numpy a listas de Python
@@ -299,7 +300,7 @@ right_data = {"embeddings": [array.tolist () for array in right_foot_pos], "name
 data = {"left": left_data, "right": right_data}
 
 # Serializa los datos como antes
-f = open ('file.json', "wb")
+f = open ('file.json', "w")
 f.write (json.dumps (data, indent=4))
 f.close ()
 
