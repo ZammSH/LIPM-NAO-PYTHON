@@ -75,7 +75,7 @@ class LIPM3D():
         self.left_foot_pos = [x_left_foot, y_left_foot, z_left_foot]
         self.right_foot_pos = [x_right_foot, y_right_foot, z_right_foot]
 
-        self.COM_pos = [(self.left_foot_pos[0] + self.right_foot_pos[0]) / 2, (self.left_foot_pos[1] + self.right_foot_pos[1]) / 2,(self.left_foot_pos[2] + self.right_foot_pos[2]) / 2]
+        self.COM_pos = (left_foot_pos+right_foot_pos)/2
 
         self.zc = self.COM_pos[2]
         self.T_c = np.sqrt(self.zc / 9.81)  # Establecer el parámetro de gravedad en 9.81
@@ -224,7 +224,6 @@ class LIPM3D():
 
 COM_pos = sim.getObjectPosition(COM, -1)
 COM_vel = sim.getObjectVelocity(COM, -1)
-
 left_foot_pos = []
 for handle in joint_handlesl:
     position = sim.getObjectPosition(handle, -1)
@@ -234,8 +233,8 @@ right_foot_pos = []
 for handle in joint_handlesr:
     position=sim.getObjectPosition(handle, -1)
     right_foot_pos.append(position)
-    
-left_foot_pos = np.array(left_foot_pos) 
+
+left_foot_pos = np.array(left_foot_pos)
 right_foot_pos = np.array(right_foot_pos)
 # Obtener los elementos individuales de las posiciones
 x_left_foot = [pos[0]for pos in left_foot_pos]
