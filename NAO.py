@@ -258,7 +258,8 @@ T_sup = 1.0
 s_x = 80
 s_y = 79
 theta = 15
-u=0
+u = 0
+u = u % 6
 duration = 6
 t = 0.0
 print(len(joint_handlesr))
@@ -290,5 +291,16 @@ while t < duration:
     sim.setJointTargetVelocity(joint_handlesl[u], lipm_model.vy_d)
     t += T_sup
     u +=1
+# Antes de serializar los datos, convierte los arrays de numpy a listas de Python
+left_data = {"embeddings": [array.tolist () for array in left_foot_pos], "names": left_foot_pos}
+right_data = {"embeddings": [array.tolist () for array in right_foot_pos], "names": right_foot_pos}
+
+# Combina los datos en un solo diccionario
+data = {"left": left_data, "right": right_data}
+
+# Serializa los datos como antes
+f = open ('file.json', "wb")
+f.write (json.dumps (data, indent=4))
+f.close ()
 
 sim.stopSimulation()
