@@ -232,7 +232,8 @@ right_foot_pos = []
 for handle in joint_handlesr:
     position=sim.getObjectPosition(handle, -1)
     right_foot_pos.append(position)
-
+left_foot_pos = np.array(left_foot_pos) 
+right_foot_pos = np.array(right_foot_pos)
 # Obtener los elementos individuales de las posiciones
 x_left_foot = [pos[0]for pos in left_foot_pos]
 y_left_foot = [pos[1]for pos in left_foot_pos]
