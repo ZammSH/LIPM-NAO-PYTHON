@@ -8,8 +8,20 @@ sim.startSimulation()
 
 COM = sim.getObject('/NAO')
 legr = sim.getObjectHandle('/NAO/Rjoint')
+Rl2 = sim.getObjectHandle('/NAO/Rl2')
+Rl3 = sim.getObjectHandle('/NAO/Rl3')
+Rl4 = sim.getObjectHandle('/NAO/Rl4')
+Rl5 = sim.getObjectHandle('/NAO/Rl5')
+Rl6 = sim.getObjectHandle('/NAO/Rl6')
 legl = sim.getObjectHandle('/NAO/Ljoint')
-joint_handles = [legl,legr]
+Ll2 = sim.getObjectHandle('/NAO/Ll2')
+Ll3 = sim.getObjectHandle('/NAO/Ll3')
+Ll4 = sim.getObjectHandle('/NAO/Ll4')
+Ll5 = sim.getObjectHandle('/NAO/Ll5')
+Ll6 = sim.getObjectHandle('/NAO/Ll6')
+joint_handles = [legl,Rl2, Rl3, Rl4, Rl5, Rl6, legr, Ll2, Ll3, Ll4, Ll5, Ll6]
+joint_handlesr=[Rl2, Rl3, Rl4, Rl5, Rl6, legr]
+joint_handlesl=[Ll2, Ll3, Ll4, Ll5, Ll6, legl]
 print(legr)
 print(legl)
 
@@ -212,8 +224,14 @@ class LIPM3D():
 
 COM_pos = sim.getObjectPosition(COM, -1)
 COM_vel = sim.getObjectVelocity(COM, -1)
-left_foot_pos = sim.getObjectPosition(legr, -1)
-right_foot_pos = sim.getObjectPosition(legl, -1)
+left_foot_pos = []
+for handle in joint_handlesl:
+    position = sim.getObjectPosition(handle, -1)
+    left_foot_pos.append(position)
+right_foot_pos = []
+for handle in joint_handlesr:
+    position=sim.getObjectPosition(handle, -1)
+    right_foot_pos.append(position)
 x_left_foot, y_left_foot, z_left_foot = left_foot_pos
 x_right_foot, y_right_foot, z_right_foot = right_foot_pos
 print("Left Foot Position:", left_foot_pos)
@@ -236,9 +254,9 @@ lipm_model.y_0 = COM_pos[1] - y_right_foot
 lipm_model.vy_0 = COM_vel[1]
 
 T_sup = 1.0
-s_x = 0.1
-s_y = 0.0
-theta = 0.0
+s_x = 80
+s_y = 79
+theta = 15
 
 duration = 15
 t = 0.0
@@ -265,10 +283,10 @@ while t < duration:
             sim.setJointTargetVelocity(joint_handles[i], desired_velocity)
     
     # Aquí se establecen las posiciones y velocidades deseadas en el simulador
-    sim.setJointTargetPosition(legr, lipm_model.p_x_star)
-    sim.setJointTargetPosition(legl, lipm_model.p_y_star)
-    sim.setJointTargetVelocity(legr, lipm_model.vx_d)
-    sim.setJointTargetVelocity(legl, lipm_model.vy_d)
+    sim.setJointTargetPosition(joint_handlesr[i], lipm_model.p_x_star)
+    sim.setJointTargetPosition(joint_handlesl[i], lipm_model.p_y_star)
+    sim.setJointTargetVelocity(joint_handlesr[i], lipm_model.vx_d)
+    sim.setJointTargetVelocity(joint_handlesl[i], lipm_model.vy_d)
     t += T_sup
 
 sim.stopSimulation()
