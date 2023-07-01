@@ -78,7 +78,7 @@ class LIPM3D():
         self.COM_pos = (left_foot_pos+right_foot_pos)/2
 
         self.zc = self.COM_pos[2]
-        self.T_c = np.sqrt(self.zc / 9.81)  # Establecer el parámetro de gravedad en 9.81
+        self.T_c = np.sqrt(np.abs(self.zc) / 9.81)  # Establecer el parámetro de gravedad en 9.81
         self.C = np.cosh(self.T_sup / self.T_c)
         self.S = np.sinh(self.T_sup / self.T_c)
 
@@ -247,10 +247,11 @@ z_right_foot = [pos[2]for pos in right_foot_pos]
 
 lipm_model = LIPM3D()
 lipm_model.initializeModel(COM_pos, x_left_foot, y_left_foot, z_left_foot, x_right_foot, y_right_foot, z_right_foot)
-
+x_left_foot=left_foot_pos[-1][0]
 lipm_model.x_0 = COM_pos[0] - x_left_foot
 lipm_model.vx_0 = COM_vel[0]
-lipm_model.y_0 = COM_pos[1] - y_right_foot
+y_left_foot=left_foot_pos[-1][1]
+lipm_model.y_0 = COM_pos[1] - y_left_foot
 lipm_model.vy_0 = COM_vel[1]
 
 T_sup = 1.0
