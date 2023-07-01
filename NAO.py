@@ -261,9 +261,9 @@ s_y = 2
 theta = 1
 u = 0
 u = u % 6
-duration = 15
+duration = 6
 t = 0.0
-print(type(lipm_model.p_x_star))
+
 while t < duration:
     lipm_model.step()
     lipm_model.calculateFootLocationForNextStep(s_x, s_y, theta)
@@ -286,7 +286,7 @@ while t < duration:
             sim.setJointTargetVelocity(joint_handles[i], desired_velocity)
     
     # Aquí se establecen las posiciones y velocidades deseadas en el simulador
-    
+
     sim.setJointTargetPosition(joint_handlesr[u], lipm_model.p_x_star)
     sim.setJointTargetPosition(joint_handlesl[u], lipm_model.p_y_star)
     sim.setJointTargetVelocity(joint_handlesr[u], lipm_model.vx_d)
