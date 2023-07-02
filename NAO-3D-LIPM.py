@@ -20,9 +20,9 @@ Ll3 = sim.getObjectHandle('/NAO/Ll3')
 Ll4 = sim.getObjectHandle('/NAO/Ll4')
 Ll5 = sim.getObjectHandle('/NAO/Ll5')
 Ll6 = sim.getObjectHandle('/NAO/Ll6')
-joint_handles = [legl,Rl2, Rl3, Rl4, Rl5, Rl6, legr, Ll2, Ll3, Ll4, Ll5, Ll6]
-joint_handlesr=[Rl2, Rl3, Rl4, Rl5, Rl6, legr]
-joint_handlesl=[Ll2, Ll3, Ll4, Ll5, Ll6, legl]
+joint_handles = [legl, Rl2, Rl3, Rl4, Rl5, Rl6, legr, Ll2, Ll3, Ll4, Ll5, Ll6]
+joint_handlesr = [Rl2, Rl3, Rl4, Rl5, Rl6, legr]
+joint_handlesl = [Ll2, Ll3, Ll4, Ll5, Ll6, legl]
 print(legr)
 print(legl)
 
