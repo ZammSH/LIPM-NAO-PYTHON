@@ -228,7 +228,7 @@ x_left_foot, y_left_foot, z_left_foot = left_foot_pos
 x_right_foot, y_right_foot, z_right_foot = right_foot_pos
 print("Left Foot Position:", left_foot_pos)
 print("Right Foot Position:", right_foot_pos)
-# Obtener los elementos individuales de las posiciones
+
 x_left_foot = left_foot_pos[0]
 y_left_foot = left_foot_pos[1]
 z_left_foot = left_foot_pos[2]
@@ -274,7 +274,7 @@ while t < duration:
             sim.setJointPosition(joint_handles[i], desired_position)
             sim.setJointTargetVelocity(joint_handles[i], desired_velocity)
     
-    # Aquí se establecen las posiciones y velocidades deseadas en el simulador
+    
     sim.setJointTargetPosition(legr, lipm_model.p_x_star)
     sim.setJointTargetPosition(legl, lipm_model.p_y_star)
     sim.setJointTargetVelocity(legr, lipm_model.vx_d)
